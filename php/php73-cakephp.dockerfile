@@ -1,12 +1,11 @@
-FROM php:7-fpm
+FROM php:73-fpm
 
 COPY docker/web/docker-php-ext-enable /usr/local/bin
 
 # cakephpに必要そうなものインスコ
-RUN apt-get update \
- && apt-get install -y git libcurl4-gnutls-dev zlib1g-dev libicu-dev g++ libxml2-dev libpq-dev unzip vim \
+RUN apt update \
+ && apt install -y git libcurl4-gnutls-dev zlib1g-dev libicu-dev g++ libxml2-dev libpq-dev unzip vim \
  && docker-php-ext-install pdo pdo_mysql intl curl json opcache xml
-
 # RUN apt-get autoremove && apt-get autoclean
 # RUN  rm -rf /var/lib/apt/lists/*
 
