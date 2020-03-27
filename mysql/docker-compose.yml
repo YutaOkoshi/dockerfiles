@@ -1,0 +1,19 @@
+version: "3"
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/rds/Dockerfile
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: flask
+      MYSQL_ROOT_HOST: "%"
+      TZ: "Asia/Tokyo"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+    volumes:
+      # - ./docker/rds/data:/var/lib/mysql
+      - ./docker/rds/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/rds/sql:/docker-entrypoint-initdb.d
+      - ./docker/rds/log:/var/log/mysql
+    ports:
+      - 3306:3306
