@@ -1,4 +1,4 @@
-FROM php:73-fpm
+FROM php:7.3-fpm
 
 COPY docker/web/docker-php-ext-enable /usr/local/bin
 
@@ -8,6 +8,8 @@ RUN apt update \
  && docker-php-ext-install pdo pdo_mysql intl curl json opcache xml
 # RUN apt-get autoremove && apt-get autoclean
 # RUN  rm -rf /var/lib/apt/lists/*
+
+RUN echo "\n extension=intl.so \n" >> /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini
 
 # composerのインタラクティブモードとか外す
 ENV COMPOSER_ALLOW_SUPERUSER 1
